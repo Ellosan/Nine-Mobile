@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "CommonJS",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": ".test-build",
+    "rootDir": "src",
+    "declaration": false,
+    "sourceMap": false
+  },
+  "include": [
+    "src/types.ts",
+    "src/api/sse.ts",
+    "src/api/openai.ts",
+    "src/agent/toolSchemas.ts",
+    "src/agent/loop.ts",
+    "src/util/markdown.ts",
+    "src/util/highlight.ts",
+    "src/util/id.ts",
+    "src/util/path.ts"
+  ]
+}
