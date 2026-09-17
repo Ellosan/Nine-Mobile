@@ -95,6 +95,15 @@ template configures and is fine for sideloading. Before distributing the app to 
 generate a real keystore and wire it into `signingConfigs.release` in `android/app/build.gradle` —
 see [Signed APK](https://reactnative.dev/docs/signed-apk-android).
 
+A default build is universal — it carries native libraries for all four ABIs. To build only for
+the phone you actually have (roughly 26 MB instead of 65 MB), pass the ABI on the command line:
+
+```bash
+./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a
+```
+
+`arm64-v8a` covers essentially every Android phone made in the last decade.
+
 > If your build machine sits behind a proxy or a shared egress IP, Maven Central may answer
 > Gradle's parallel requests with HTTP 429. Gradle treats 429 as a hard failure rather than a
 > cache miss, so it will not fall through to the next repository. The fix is to put an unthrottled
