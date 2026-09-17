@@ -71,12 +71,35 @@ eas build --platform android --profile preview        # installable APK
 | `production` | AAB | Play Store |
 | `production-apk` | APK | Sideloaded release build |
 
-For a local build without EAS servers:
+### Building locally, without an Expo account
+
+EAS builds run on Expo's servers and require you to be logged in (`eas login`, or
+an `EXPO_TOKEN` from <https://expo.dev/settings/access-tokens> for CI). If you would rather not
+involve an account at all, the same APK builds locally:
 
 ```bash
-npx expo prebuild --platform android
+npx expo prebuild --platform android     # generates android/
 cd android && ./gradlew assembleRelease
+# -> android/app/build/outputs/apk/release/app-release.apk
 ```
+
+You need JDK 17+ and the Android SDK (platform 36 and build-tools 36.x). If `ANDROID_HOME` is not
+set, point Gradle at the SDK with `android/local.properties`:
+
+```properties
+sdk.dir=/path/to/android-sdk
+```
+
+`assembleRelease` is signed with the standard debug keystore, which is what the React Native
+template configures and is fine for sideloading. Before distributing the app to anyone else,
+generate a real keystore and wire it into `signingConfigs.release` in `android/app/build.gradle` —
+see [Signed APK](https://reactnative.dev/docs/signed-apk-android).
+
+> If your build machine sits behind a proxy or a shared egress IP, Maven Central may answer
+> Gradle's parallel requests with HTTP 429. Gradle treats 429 as a hard failure rather than a
+> cache miss, so it will not fall through to the next repository. The fix is to put an unthrottled
+> mirror (`https://maven-central.storage-download.googleapis.com/maven2`) first and Maven Central
+> last. A Gradle init script is the least invasive way to do it.
 
 ---
 

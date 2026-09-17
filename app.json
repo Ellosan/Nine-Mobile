@@ -6,10 +6,12 @@
     "orientation": "portrait",
     "scheme": "agentkey",
     "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
     "platforms": ["android"],
     "android": {
       "package": "com.agentkey.app",
       "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0B0F14"
       },
       "permissions": ["android.permission.INTERNET"]
@@ -22,8 +24,10 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0B0F14",
-          "imageWidth": 160
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 160,
+          "resizeMode": "contain",
+          "backgroundColor": "#0B0F14"
         }
       ]
     ]
